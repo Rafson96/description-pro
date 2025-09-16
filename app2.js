@@ -381,7 +381,7 @@ const advantagesOptions = [
     }
 ];
 
-const LOCAL_STORAGE_KEY = 'htmlGeneratorState';
+onst LOCAL_STORAGE_KEY = 'htmlGeneratorState';
 let history = [];
 let historyIndex = -1;
 let isRestoringState = false;
@@ -556,6 +556,17 @@ function updateUndoRedoButtons() {
 document.addEventListener('DOMContentLoaded', () => {
     loadStateFromLocalStorage();
     const container = document.getElementById('sectionsContainer');
+
+    // Inicjalizacja SortableJS
+    new Sortable(container, {
+        animation: 150,
+        handle: '.drag-handle', // Uchwyt do przeciągania
+        onEnd: function () {
+            // Zapisz nową kolejność po zakończeniu przeciągania
+            saveState();
+        }
+    });
+
     container.addEventListener('input', debounce(saveState, 400));
     container.addEventListener('change', saveState);
 });
@@ -580,8 +591,18 @@ function addTextSection(suppressSave = false) {
     const div = document.createElement('div');
     div.className = 'section-block';
     div.setAttribute('data-id', sectionId);
+    // ZMIANA: Dodano uchwyt (drag-handle) i usunięto przyciski góra/dół
     div.innerHTML = `
-      <div class="section-actions"><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveUp(this)">⬆</button><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveDown(this)">⬇</button><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button></div><h5>Sekcja tekstowa</h5><div class="mb-2"><label class="form-label">Rodzaj tagu:</label><select class="form-select" name="sections[${sectionId}][tag]" onchange="toggleListTitle(this)"><option value="p">p</option><option value="strong">strong</option><option value="h1">h1</option><option value="h2">h2</option><option value="h3">h3</option><option value="ul">Lista wypunktowana (ul)</option><option value="ol">Lista numerowana (ol)</option></select></div><div class="mb-2 list-title" style="display:none"><label class="form-label">Nagłówek listy:</label><input type="text" class="form-control" name="sections[${sectionId}][list_heading]"></div><div class="mb-2"><label class="form-label d-flex justify-content-between"><span>Treść:</span><button type="button" class="btn btn-sm btn-outline-dark" onclick="wrapInBold('editable-${sectionId}')"><strong>B</strong></button></label><div id="editable-${sectionId}" class="form-control editable-textarea" contenteditable="true" oninput="syncContentEditable(this, 'textarea-${sectionId}')"></div><textarea id="textarea-${sectionId}" name="sections[${sectionId}][content]" style="display: none;"></textarea></div><div class="mb-2"><label class="form-label">Klasa CSS:</label><input type="text" class="form-control" name="sections[${sectionId}][class]"></div><input type="hidden" name="sections[${sectionId}][type]" value="text">`;
+      <div class="section-actions">
+        <i class="bi bi-grip-vertical drag-handle me-2"></i>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button>
+      </div>
+      <h5>Sekcja tekstowa</h5>
+      <div class="mb-2"><label class="form-label">Rodzaj tagu:</label><select class="form-select" name="sections[${sectionId}][tag]" onchange="toggleListTitle(this)"><option value="p">p</option><option value="strong">strong</option><option value="h1">h1</option><option value="h2">h2</option><option value="h3">h3</option><option value="ul">Lista wypunktowana (ul)</option><option value="ol">Lista numerowana (ol)</option></select></div>
+      <div class="mb-2 list-title" style="display:none"><label class="form-label">Nagłówek listy:</label><input type="text" class="form-control" name="sections[${sectionId}][list_heading]"></div>
+      <div class="mb-2"><label class="form-label d-flex justify-content-between"><span>Treść:</span><button type="button" class="btn btn-sm btn-outline-dark" onclick="wrapInBold('editable-${sectionId}')"><strong>B</strong></button></label><div id="editable-${sectionId}" class="form-control editable-textarea" contenteditable="true" oninput="syncContentEditable(this, 'textarea-${sectionId}')"></div><textarea id="textarea-${sectionId}" name="sections[${sectionId}][content]" style="display: none;"></textarea></div>
+      <div class="mb-2"><label class="form-label">Klasa CSS:</label><input type="text" class="form-control" name="sections[${sectionId}][class]"></div>
+      <input type="hidden" name="sections[${sectionId}][type]" value="text">`;
     container.appendChild(div);
     if (!suppressSave) saveState();
     return div;
@@ -594,8 +615,20 @@ function addImageSection(suppressSave = false) {
     const div = document.createElement('div');
     div.className = 'section-block';
     div.setAttribute('data-id', sectionId);
+    // ZMIANA: Dodano uchwyt (drag-handle) i usunięto przyciski góra/dół
     div.innerHTML = `
-      <div class="section-actions"><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveUp(this)">⬆</button><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveDown(this)">⬇</button><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button></div><h5>Sekcja obrazkowa</h5><div class="mb-3"><label class="form-label">Wybierz zdjęcie z listy:</label><select class="form-select" onchange="updateImageDetails(this, '${sectionId}')"><option value="">-- Wybierz lub wypełnij ręcznie --</option>${imageOptionsHtml}</select></div><div class="mb-2"><label class="form-label">URL obrazka:</label><input type="text" class="form-control" name="sections[${sectionId}][url]" placeholder="https://example.com/image.jpg"></div><div class="mb-2"><label class="form-label">Alt:</label><input type="text" class="form-control" name="sections[${sectionId}][alt]" placeholder="Opis alternatywny"></div><div class="row g-2"><div class="col-md-12"><label class="form-label">Szerokość (width):</label><input type="number" class="form-control" name="sections[${sectionId}][width]" value="1080"></div></div><div class="mb-2 mt-2"><label class="form-label">Klasa CSS (dla tagu img):</label><input type="text" class="form-control" name="sections[${sectionId}][class]"></div><div class="mt-3"><img src="" alt="Podgląd wybranego obrazka" style=" width: 150px; max-width: 100%; display: none;" class="image-preview"></div><input type="hidden" name="sections[${sectionId}][type]" value="image">`;
+      <div class="section-actions">
+        <i class="bi bi-grip-vertical drag-handle me-2"></i>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button>
+      </div>
+      <h5>Sekcja obrazkowa</h5>
+      <div class="mb-3"><label class="form-label">Wybierz zdjęcie z listy:</label><select class="form-select" onchange="updateImageDetails(this, '${sectionId}')"><option value="">-- Wybierz lub wypełnij ręcznie --</option>${imageOptionsHtml}</select></div>
+      <div class="mb-2"><label class="form-label">URL obrazka:</label><input type="text" class="form-control" name="sections[${sectionId}][url]" placeholder="https://example.com/image.jpg"></div>
+      <div class="mb-2"><label class="form-label">Alt:</label><input type="text" class="form-control" name="sections[${sectionId}][alt]" placeholder="Opis alternatywny"></div>
+      <div class="row g-2"><div class="col-md-12"><label class="form-label">Szerokość (width):</label><input type="number" class="form-control" name="sections[${sectionId}][width]" value="1080"></div></div>
+      <div class="mb-2 mt-2"><label class="form-label">Klasa CSS (dla tagu img):</label><input type="text" class="form-control" name="sections[${sectionId}][class]"></div>
+      <div class="mt-3"><img src="" alt="Podgląd wybranego obrazka" style=" width: 150px; max-width: 100%; display: none;" class="image-preview"></div>
+      <input type="hidden" name="sections[${sectionId}][type]" value="image">`;
     container.appendChild(div);
     if (!suppressSave) saveState();
     return div;
@@ -607,24 +640,22 @@ function addAdvantagesSection(suppressSave = false) {
     const div = document.createElement('div');
     div.className = 'section-block';
     div.setAttribute('data-id', sectionId);
+    // ZMIANA: Dodano uchwyt (drag-handle) i usunięto przyciski góra/dół
     div.innerHTML = `
-      <div class="section-actions"><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveUp(this)">⬆</button><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveDown(this)">⬇</button><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button></div><h5>Sekcja zalet</h5><div class="advantages-container mb-3"></div><button type="button" class="btn btn-sm btn-outline-primary" onclick="addAdvantageItem(this, '${sectionId}')">➕ Dodaj zaletę</button><input type="hidden" name="sections[${sectionId}][type]" value="advantages">`;
+      <div class="section-actions">
+        <i class="bi bi-grip-vertical drag-handle me-2"></i>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button>
+      </div>
+      <h5>Sekcja zalet</h5>
+      <div class="advantages-container mb-3"></div>
+      <button type="button" class="btn btn-sm btn-outline-primary" onclick="addAdvantageItem(this, '${sectionId}')">➕ Dodaj zaletę</button>
+      <input type="hidden" name="sections[${sectionId}][type]" value="advantages">`;
     container.appendChild(div);
     if (!suppressSave) saveState();
     return div;
 }
 
-function moveUp(button) {
-    const section = button.closest('.section-block');
-    const prev = section.previousElementSibling;
-    if (prev) { section.parentNode.insertBefore(section, prev); saveState(); }
-}
-
-function moveDown(button) {
-    const section = button.closest('.section-block');
-    const next = section.nextElementSibling;
-    if (next) { section.parentNode.insertBefore(next, section); saveState(); }
-}
+// USUNIĘTO FUNKCJE moveUp I moveDown
 
 function removeSection(button) {
     button.closest('.section-block').remove();
@@ -787,7 +818,6 @@ function generateHTML(event) {
     event?.preventDefault?.();
     const source = document.getElementById('sourceCode'), preview = document.querySelector('#result .preview');
 
-
     const originalState = getEditorState();
 
     const filteredState = originalState.filter(section => {
@@ -808,7 +838,6 @@ function generateHTML(event) {
     });
 
     let htmlChunks = [];
-   
     filteredState.forEach(section => {
         const hiddenTextarea = document.createElement('textarea'), editableDiv = document.createElement('div');
         switch(section.type) {
@@ -844,10 +873,8 @@ function generateHTML(event) {
     preview.innerHTML = finalHtml;
     source.value = finalHtml;
 
-
     setEditorState(filteredState);
     
-
     setTimeout(() => {
       saveState();
     }, 100);
