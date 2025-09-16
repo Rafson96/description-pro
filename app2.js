@@ -1,0 +1,475 @@
+
+
+let sectionCount = 0;
+const imageOptions = [  ];
+const advantagesOptions = [ ];
+
+const LOCAL_STORAGE_KEY = 'htmlGeneratorState';
+let history = [];
+let historyIndex = -1;
+let isRestoringState = false;
+let pasteModalInstance = null;
+function openPasteModal() {
+    if (!pasteModalInstance) {
+        pasteModalInstance = new bootstrap.Modal(document.getElementById('pasteModal'));
+    }
+    pasteModalInstance.show();
+}
+
+
+function processPastedHTML() {
+    const editableArea = document.getElementById('pasteModalEditable');
+    const htmlContent = editableArea.innerHTML;
+
+    if (htmlContent.trim()) {
+        loadFromPastedHTML(htmlContent);
+    }
+    
+    editableArea.innerHTML = ''; 
+    pasteModalInstance.hide();
+}
+
+
+
+
+function getEditorState() {
+    const sections = document.querySelectorAll('#sectionsContainer .section-block');
+    const state = [];
+    sections.forEach(section => {
+        const type = section.querySelector('input[name*="[type]"]').value;
+        const sectionState = { type };
+        switch (type) {
+            case 'text':
+                sectionState.tag = section.querySelector('select[name*="[tag]"]').value;
+                sectionState.list_heading = section.querySelector('input[name*="[list_heading]"]').value;
+                sectionState.content = section.querySelector('.editable-textarea').innerHTML;
+                sectionState.class = section.querySelector('input[name*="[class]"]').value;
+                break;
+            case 'image':
+                sectionState.url = section.querySelector('input[name*="[url]"]').value;
+                sectionState.alt = section.querySelector('input[name*="[alt]"]').value;
+                sectionState.width = section.querySelector('input[name*="[width]"]').value;
+                sectionState.class = section.querySelector('input[name*="[class]"]').value;
+                break;
+            case 'advantages':
+                sectionState.items = Array.from(section.querySelectorAll('.advantages-container select'))
+                    .map(select => select.value)
+                    .filter(val => val !== "");
+                break;
+        }
+        state.push(sectionState);
+    });
+    return state;
+}
+
+function setEditorState(state) {
+    isRestoringState = true;
+    const container = document.getElementById('sectionsContainer');
+    container.innerHTML = '';
+    sectionCount = 0;
+
+    if (state && state.length > 0) {
+        state.forEach(sectionState => {
+            let sectionNode;
+            switch (sectionState.type) {
+                case 'text':
+                    sectionNode = addTextSection(true);
+                    sectionNode.querySelector('select[name*="[tag]"]').value = sectionState.tag;
+                    sectionNode.querySelector('input[name*="[list_heading]"]').value = sectionState.list_heading;
+                    sectionNode.querySelector('input[name*="[class]"]').value = sectionState.class;
+                    const editableDiv = sectionNode.querySelector('.editable-textarea');
+                    editableDiv.innerHTML = sectionState.content;
+                    const hiddenTextareaId = sectionNode.querySelector('textarea[name*="[content]"]').id;
+                    syncContentEditable(editableDiv, hiddenTextareaId);
+                    toggleListTitle(sectionNode.querySelector('select[name*="[tag]"]'));
+                    break;
+                case 'image':
+                    sectionNode = addImageSection(true);
+                    sectionNode.querySelector('input[name*="[url]"]').value = sectionState.url;
+                    sectionNode.querySelector('input[name*="[alt]"]').value = sectionState.alt;
+                    sectionNode.querySelector('input[name*="[width]"]').value = sectionState.width;
+                    sectionNode.querySelector('input[name*="[class]"]').value = sectionState.class;
+                    updateImageDetails(sectionNode.querySelector('select'), sectionNode.getAttribute('data-id'));
+                    break;
+                case 'advantages':
+                    sectionNode = addAdvantagesSection(true);
+                    const addButton = sectionNode.querySelector('.btn-outline-primary');
+                    sectionState.items.forEach(itemIndex => {
+                        addAdvantageItem(addButton, sectionNode.getAttribute('data-id'));
+                        const newSelect = sectionNode.querySelector('.advantages-container > div:last-child select');
+                        newSelect.value = itemIndex;
+                        newSelect.dispatchEvent(new Event('change'));
+                    });
+                    break;
+            }
+        });
+    }
+    setTimeout(() => { isRestoringState = false; }, 50);
+}
+
+
+
+function saveState() {
+    if (isRestoringState) return;
+    const currentState = getEditorState();
+    if (historyIndex > -1 && JSON.stringify(currentState) === JSON.stringify(history[historyIndex])) {
+        return;
+    }
+    if (historyIndex < history.length - 1) {
+        history = history.slice(0, historyIndex + 1);
+    }
+    history.push(currentState);
+    historyIndex = history.length - 1;
+    try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentState));
+    } catch (e) {
+        console.error("Błąd podczas zapisu do Local Storage:", e);
+    }
+    updateUndoRedoButtons();
+}
+
+function loadStateFromLocalStorage() {
+    const savedStateJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
+    let initialState = savedStateJSON ? JSON.parse(savedStateJSON) : [];
+    history = [initialState];
+    historyIndex = 0;
+    setEditorState(initialState);
+    updateUndoRedoButtons();
+}
+
+function undo() {
+    if (historyIndex > 0) {
+        historyIndex--;
+        setEditorState(history[historyIndex]);
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(history[historyIndex]));
+        updateUndoRedoButtons();
+    }
+}
+
+function redo() {
+    if (historyIndex < history.length - 1) {
+        historyIndex++;
+        setEditorState(history[historyIndex]);
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(history[historyIndex]));
+        updateUndoRedoButtons();
+    }
+}
+
+function resetEditor() {
+    const isConfirmed = confirm("Czy na pewno chcesz zresetować cały edytor? Spowoduje to usunięcie wszystkich sekcji i historii zmian.");
+    if (!isConfirmed) return;
+    document.getElementById('sectionsContainer').innerHTML = '';
+    history = [[]];
+    historyIndex = 0;
+    sectionCount = 0;
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    updateUndoRedoButtons();
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('sourceCode').value = '';
+    document.querySelector('#result .preview').innerHTML = '';
+    console.log("Edytor został zresetowany.");
+}
+
+function updateUndoRedoButtons() {
+    document.getElementById('btn-undo').disabled = historyIndex <= 0;
+    document.getElementById('btn-redo').disabled = historyIndex >= history.length - 1;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadStateFromLocalStorage();
+    const container = document.getElementById('sectionsContainer');
+    container.addEventListener('input', debounce(saveState, 400));
+    container.addEventListener('change', saveState);
+});
+
+document.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key.toLowerCase() === 'z') { e.preventDefault(); undo(); }
+    if (e.ctrlKey && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); }
+});
+
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+
+function addTextSection(suppressSave = false) {
+    const container = document.getElementById('sectionsContainer');
+    const sectionId = `section-${sectionCount++}`;
+    const div = document.createElement('div');
+    div.className = 'section-block';
+    div.setAttribute('data-id', sectionId);
+    div.innerHTML = `
+      <div class="section-actions"><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveUp(this)">⬆</button><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveDown(this)">⬇</button><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button></div><h5>Sekcja tekstowa</h5><div class="mb-2"><label class="form-label">Rodzaj tagu:</label><select class="form-select" name="sections[${sectionId}][tag]" onchange="toggleListTitle(this)"><option value="p">p</option><option value="strong">strong</option><option value="h1">h1</option><option value="h2">h2</option><option value="h3">h3</option><option value="ul">Lista wypunktowana (ul)</option><option value="ol">Lista numerowana (ol)</option></select></div><div class="mb-2 list-title" style="display:none"><label class="form-label">Nagłówek listy:</label><input type="text" class="form-control" name="sections[${sectionId}][list_heading]"></div><div class="mb-2"><label class="form-label d-flex justify-content-between"><span>Treść:</span><button type="button" class="btn btn-sm btn-outline-dark" onclick="wrapInBold('editable-${sectionId}')"><strong>B</strong></button></label><div id="editable-${sectionId}" class="form-control editable-textarea" contenteditable="true" oninput="syncContentEditable(this, 'textarea-${sectionId}')"></div><textarea id="textarea-${sectionId}" name="sections[${sectionId}][content]" style="display: none;"></textarea></div><div class="mb-2"><label class="form-label">Klasa CSS:</label><input type="text" class="form-control" name="sections[${sectionId}][class]"></div><input type="hidden" name="sections[${sectionId}][type]" value="text">`;
+    container.appendChild(div);
+    if (!suppressSave) saveState();
+    return div;
+}
+
+function addImageSection(suppressSave = false) {
+    const container = document.getElementById('sectionsContainer');
+    const sectionId = `section-${sectionCount++}`;
+    const imageOptionsHtml = imageOptions.map((img, index) => `<option value="${index}">${img.alt}</option>`).join('');
+    const div = document.createElement('div');
+    div.className = 'section-block';
+    div.setAttribute('data-id', sectionId);
+    div.innerHTML = `
+      <div class="section-actions"><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveUp(this)">⬆</button><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveDown(this)">⬇</button><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button></div><h5>Sekcja obrazkowa</h5><div class="mb-3"><label class="form-label">Wybierz zdjęcie z listy:</label><select class="form-select" onchange="updateImageDetails(this, '${sectionId}')"><option value="">-- Wybierz lub wypełnij ręcznie --</option>${imageOptionsHtml}</select></div><div class="mb-2"><label class="form-label">URL obrazka:</label><input type="text" class="form-control" name="sections[${sectionId}][url]" placeholder="https://example.com/image.jpg"></div><div class="mb-2"><label class="form-label">Alt:</label><input type="text" class="form-control" name="sections[${sectionId}][alt]" placeholder="Opis alternatywny"></div><div class="row g-2"><div class="col-md-12"><label class="form-label">Szerokość (width):</label><input type="number" class="form-control" name="sections[${sectionId}][width]" value="1080"></div></div><div class="mb-2 mt-2"><label class="form-label">Klasa CSS (dla tagu img):</label><input type="text" class="form-control" name="sections[${sectionId}][class]"></div><div class="mt-3"><img src="" alt="Podgląd wybranego obrazka" style=" width: 150px; max-width: 100%; display: none;" class="image-preview"></div><input type="hidden" name="sections[${sectionId}][type]" value="image">`;
+    container.appendChild(div);
+    if (!suppressSave) saveState();
+    return div;
+}
+
+function addAdvantagesSection(suppressSave = false) {
+    const container = document.getElementById('sectionsContainer');
+    const sectionId = `section-${sectionCount++}`;
+    const div = document.createElement('div');
+    div.className = 'section-block';
+    div.setAttribute('data-id', sectionId);
+    div.innerHTML = `
+      <div class="section-actions"><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveUp(this)">⬆</button><button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveDown(this)">⬇</button><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button></div><h5>Sekcja zalet</h5><div class="advantages-container mb-3"></div><button type="button" class="btn btn-sm btn-outline-primary" onclick="addAdvantageItem(this, '${sectionId}')">➕ Dodaj zaletę</button><input type="hidden" name="sections[${sectionId}][type]" value="advantages">`;
+    container.appendChild(div);
+    if (!suppressSave) saveState();
+    return div;
+}
+
+function moveUp(button) {
+    const section = button.closest('.section-block');
+    const prev = section.previousElementSibling;
+    if (prev) { section.parentNode.insertBefore(section, prev); saveState(); }
+}
+
+function moveDown(button) {
+    const section = button.closest('.section-block');
+    const next = section.nextElementSibling;
+    if (next) { section.parentNode.insertBefore(next, section); saveState(); }
+}
+
+function removeSection(button) {
+    button.closest('.section-block').remove();
+    saveState();
+}
+
+function syncContentEditable(editableDiv, hiddenTextareaId) {
+    const hiddenTextarea = typeof hiddenTextareaId === 'string' ? document.getElementById(hiddenTextareaId) : hiddenTextareaId;
+    if (!hiddenTextarea) return;
+    const clone = editableDiv.cloneNode(true);
+    clone.querySelectorAll('div, p').forEach(el => el.appendChild(document.createTextNode('\n')));
+    clone.querySelectorAll('strong, b').forEach(el => {
+        el.before(document.createTextNode('[b]'));
+        el.after(document.createTextNode('[/b]'));
+    });
+    let bbcode = (clone.textContent || clone.innerText || '').replace(/\n\n/g, '\n').trim();
+    hiddenTextarea.value = bbcode;
+}
+
+function wrapInBold(editableId) {
+    document.getElementById(editableId).focus();
+    document.execCommand('bold', false, null);
+    const hiddenTextareaId = 'textarea-' + editableId.split('-').slice(1).join('-');
+    syncContentEditable(document.getElementById(editableId), hiddenTextareaId);
+    saveState();
+}
+
+function updateImageDetails(select, sectionId) {
+    const section = select.closest('.section-block');
+    const index = select.value;
+    const urlInput = section.querySelector(`input[name="sections[${sectionId}][url]"]`);
+    const altInput = section.querySelector(`input[name="sections[${sectionId}][alt]"]`);
+    const preview = section.querySelector('.image-preview');
+    if (index !== '') {
+        const imageData = imageOptions[index];
+        urlInput.value = imageData.url;
+        altInput.value = imageData.alt;
+    }
+    preview.src = urlInput.value;
+    preview.alt = altInput.value;
+    preview.style.display = urlInput.value ? 'block' : 'none';
+}
+
+function addAdvantageItem(button, sectionId) {
+  const container = button.parentElement.querySelector('.advantages-container');
+  const index = container.children.length;
+  const optionElements = advantagesOptions.map((opt, i) => `<option value="${i}">${opt.title}</option>`).join('');
+  const item = document.createElement('div');
+  item.className = 'border rounded p-2 my-2 bg-white';
+  item.innerHTML = `<div class="mb-2"><label class="form-label">Wybierz zaletę:</label><select class="form-select" onchange="updateHiddenFields(this, '${sectionId}', ${index})"><option value="">-- Wybierz --</option>${optionElements}</select></div><div class="hidden-fields"><input type="hidden" name="sections[${sectionId}][items][${index}][src]"><input type="hidden" name="sections[${sectionId}][items][${index}][alt]"><input type="hidden" name="sections[${sectionId}][items][${index}][title]"><input type="hidden" name="sections[${sectionId}][items][${index}][desc]"></div>`;
+  container.appendChild(item);
+}
+
+function updateHiddenFields(select, sectionId, index) {
+  const selectedIndex = select.value;
+  const wrapper = select.closest('.border').querySelector('.hidden-fields');
+  const inputs = { src: wrapper.querySelector(`[name="sections[${sectionId}][items][${index}][src]"]`), alt: wrapper.querySelector(`[name="sections[${sectionId}][items][${index}][alt]"]`), title: wrapper.querySelector(`[name="sections[${sectionId}][items][${index}][title]"]`), desc: wrapper.querySelector(`[name="sections[${sectionId}][items][${index}][desc]"]`) };
+  if (selectedIndex === "") return Object.values(inputs).forEach(input => input.value = "");
+  const option = advantagesOptions[selectedIndex];
+  Object.keys(option).forEach(key => { if (inputs[key]) inputs[key].value = option[key]; });
+}
+
+function toggleListTitle(select) {
+  const listTitle = select.closest('.section-block').querySelector('.list-title');
+  listTitle.style.display = (select.value === 'ul' || select.value === 'ol') ? 'block' : 'none';
+}
+
+function escapeHtml(s = '') {
+  return String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+}
+
+function loadFromPastedHTML(sourceCode) {
+    if (!sourceCode.trim()) return alert('Pole z kodem źródłowym jest puste.');
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(sourceCode, 'text/html');
+    const processedElements = new Set();
+    const newState = [];
+
+    doc.querySelectorAll('.advantages-grid').forEach(grid => {
+        if (processedElements.has(grid)) return;
+        const items = Array.from(grid.querySelectorAll('.advantages-box h3')).map(h3 =>
+            advantagesOptions.findIndex(opt => opt.title === h3.textContent.trim()).toString()
+        ).filter(index => index !== "-1");
+        if (items.length > 0) newState.push({ type: 'advantages', items });
+        grid.querySelectorAll('*').forEach(child => processedElements.add(child));
+        processedElements.add(grid);
+    });
+
+    function walkAndProcess(node) {
+        if (processedElements.has(node)) return;
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0) {
+            newState.push({ type: 'text', tag: 'p', list_heading: '', content: node.textContent, class: '' });
+            processedElements.add(node);
+            return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        let element = node, consumedNext = false, mainEl = element;
+
+        if (['P', 'H1', 'H2', 'STRONG', 'B', 'UL', 'OL', 'IMG', 'H3'].includes(element.tagName)) {
+             if (element.tagName === 'B') {
+                element.tagName = 'STRONG';
+            }
+            if (element.tagName === 'H3' && element.nextElementSibling && ['UL', 'OL'].includes(element.nextElementSibling.tagName)) {
+                mainEl = element.nextElementSibling;
+                consumedNext = true;
+            }
+            if (mainEl.tagName === 'IMG') {
+                newState.push({ type: 'image', url: mainEl.getAttribute('src') || '', alt: mainEl.alt, width: mainEl.getAttribute('width') || '', class: mainEl.className });
+            } else {
+                let content = ['UL', 'OL'].includes(mainEl.tagName) ? Array.from(mainEl.querySelectorAll('li')).map(li => `<div>${li.innerHTML}</div>`).join('') : mainEl.innerHTML;
+                newState.push({ type: 'text', tag: mainEl.tagName.toLowerCase(), list_heading: (consumedNext ? element.textContent : ''), content, class: mainEl.className });
+            }
+            processedElements.add(element);
+            if (consumedNext) processedElements.add(mainEl);
+            mainEl.querySelectorAll('*').forEach(child => processedElements.add(child));
+        } else {
+            element.childNodes.forEach(walkAndProcess);
+        }
+    }
+    doc.body.childNodes.forEach(walkAndProcess);
+    setEditorState(newState);
+    saveState();
+    alert('Import zakończony!');
+}
+
+function loadFromSource() {
+    const sourceCode = document.getElementById('sourceCode').value;
+    if (!sourceCode.trim()) return alert('Pole z kodem źródłowym jest puste.');
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(sourceCode, 'text/html');
+    const elements = Array.from(doc.body.children);
+    const newState = [];
+    let i = 0;
+    while (i < elements.length) {
+        const element = elements[i], nextElement = elements[i + 1];
+        let consumed = 1, mainEl = element, heading = '';
+        if (element.classList.contains('advantages-grid')) {
+            const items = Array.from(element.querySelectorAll('.advantages-box h3')).map(h3 => advantagesOptions.findIndex(opt => opt.title === h3.textContent.trim()).toString()).filter(index => index !== "-1");
+            newState.push({ type: 'advantages', items });
+        } else if (element.tagName === 'IMG') {
+            newState.push({ type: 'image', url: element.src, alt: element.alt, width: element.getAttribute('width') || '', class: element.className });
+        } else if (['P', 'H1', 'H2', 'H3', 'STRONG', 'UL', 'OL'].includes(element.tagName)) {
+            if (element.tagName === 'H3' && nextElement && ['UL', 'OL'].includes(nextElement.tagName)) {
+                heading = element.textContent;
+                mainEl = nextElement;
+                consumed = 2;
+            }
+            let content = ['UL', 'OL'].includes(mainEl.tagName) ? Array.from(mainEl.querySelectorAll('li')).map(li => `<div>${li.innerHTML}</div>`).join('') : mainEl.innerHTML;
+            newState.push({ type: 'text', tag: mainEl.tagName.toLowerCase(), list_heading: heading, content, class: mainEl.className });
+        }
+        i += consumed;
+    }
+    setEditorState(newState);
+    saveState();
+    alert('Import zakończony!');
+}
+
+function generateHTML(event) {
+  event?.preventDefault?.();
+  const source = document.getElementById('sourceCode'), preview = document.querySelector('#result .preview'), state = getEditorState();
+  let htmlChunks = [];
+  state.forEach(section => {
+      const hiddenTextarea = document.createElement('textarea'), editableDiv = document.createElement('div');
+      switch(section.type) {
+          case 'text':
+              editableDiv.innerHTML = section.content;
+              syncContentEditable(editableDiv, hiddenTextarea);
+              const contentRaw = hiddenTextarea.value;
+              if (section.tag === 'ul' || section.tag === 'ol') htmlChunks.push(buildList(section.tag, contentRaw, section.list_heading, section.class));
+              else {
+                  const cls = section.class ? ` class="${escapeHtml(section.class)}"` : '';
+                  htmlChunks.push(`<${section.tag}${cls}>${bbcodeToHtml(contentRaw)}</${section.tag}>`);
+              }
+              break;
+          case 'image':
+              if (section.url) {
+                  const widthAttr = section.width ? ` width="${escapeHtml(section.width)}"` : '', classAttr = section.class ? ` class="${escapeHtml(section.class)}"` : '';
+                  htmlChunks.push(`<img src="${escapeHtml(section.url)}" alt="${escapeHtml(section.alt)}"${widthAttr}${classAttr} loading="lazy">`);
+              }
+              break;
+          case 'advantages':
+              if (section.items && section.items.length > 0) {
+                  const boxes = section.items.map(index => advantagesOptions[index]).map(it => `<div class="advantages-box"><img src="${escapeHtml(it.src)}" alt="${escapeHtml(it.alt)}" /><div class="text"><h3>${escapeHtml(it.title)}</h3><p>${escapeHtml(it.desc)}</p></div></div>`).join('');
+                  htmlChunks.push(`<div class="advantages-grid">${boxes}</div>`);
+              }
+              break;
+      }
+  });
+  const finalHtml = htmlChunks.join('\n\n');
+  document.getElementById('result').style.display = 'block';
+  preview.innerHTML = finalHtml;
+  source.value = finalHtml;
+}
+
+function bbcodeToHtml(raw = '') {
+    let s = escapeHtml(raw);
+    s = s.replaceAll('[b]', '<strong>').replaceAll('[/b]', '</strong>');
+    return s.replaceAll('\n', '<br>');
+}
+
+function buildList(tag, textContent, listHeading, cssClass) {
+  const items = textContent.split(/\r?\n/).map(t => t.trim()).filter(Boolean).map(li => `<li>${bbcodeToHtml(li).replaceAll('<br>', '')}</li>`).join('');
+  const heading = listHeading ? `<h3>${escapeHtml(listHeading)}</h3>` : '';
+  const cls = cssClass ? ` class="${escapeHtml(cssClass)}"` : '';
+  return `${heading}<${tag}${cls}>${items}</${tag}>`;
+}
+
+function updatePreview() {
+  const preview = document.querySelector('#result .preview'), source = document.getElementById('sourceCode');
+  if (preview && source) preview.innerHTML = source.value;
+}
+
+async function copyToClipboard() {
+  const source = document.getElementById('sourceCode');
+  if (!source || !source.value) return;
+  try {
+    await navigator.clipboard.writeText(source.value);
+    alert('Skopiowano do schowka!');
+  } catch {
+    source.select();
+    document.execCommand('copy');
+    alert('Skopiowano do schowka!');
+  }
+}
