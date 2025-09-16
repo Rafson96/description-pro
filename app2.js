@@ -381,7 +381,7 @@ const advantagesOptions = [
     }
 ];
 
-onst LOCAL_STORAGE_KEY = 'htmlGeneratorState';
+const LOCAL_STORAGE_KEY = 'htmlGeneratorState';
 let history = [];
 let historyIndex = -1;
 let isRestoringState = false;
@@ -914,3 +914,4 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
