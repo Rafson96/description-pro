@@ -914,4 +914,3 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
-
