@@ -785,23 +785,43 @@ function loadFromSource() {
 
 function generateHTML(event) {
     event?.preventDefault?.();
-    const source = document.getElementById('sourceCode'), preview = document.querySelector('#result .preview'), state = getEditorState();
+    const source = document.getElementById('sourceCode'), preview = document.querySelector('#result .preview');
+
+
+    const originalState = getEditorState();
+
+    const filteredState = originalState.filter(section => {
+        switch(section.type) {
+            case 'text':
+                const hiddenTextarea = document.createElement('textarea');
+                const editableDiv = document.createElement('div');
+                editableDiv.innerHTML = section.content;
+                syncContentEditable(editableDiv, hiddenTextarea);
+                return hiddenTextarea.value.trim() !== '';
+            case 'image':
+                return section.url && section.url.trim() !== '';
+            case 'advantages':
+                return section.items && section.items.length > 0;
+            default:
+                return true; 
+        }
+    });
+
     let htmlChunks = [];
-    state.forEach(section => {
+   
+    filteredState.forEach(section => {
         const hiddenTextarea = document.createElement('textarea'), editableDiv = document.createElement('div');
         switch(section.type) {
             case 'text':
                 editableDiv.innerHTML = section.content;
                 syncContentEditable(editableDiv, hiddenTextarea);
                 const contentRaw = hiddenTextarea.value;
-                // ZMIANA: Sprawdzenie, czy zawartość nie jest pusta
-                if (contentRaw.trim()) {
-                    if (section.tag === 'ul' || section.tag === 'ol') {
-                        htmlChunks.push(buildList(section.tag, contentRaw, section.list_heading, section.class));
-                    } else {
-                        const cls = section.class ? ` class="${escapeHtml(section.class)}"` : '';
-                        htmlChunks.push(`<${section.tag}${cls}>${bbcodeToHtml(contentRaw)}</${section.tag}>`);
-                    }
+                if (section.tag === 'ul' || section.tag === 'ol') {
+                    const listHtml = buildList(section.tag, contentRaw, section.list_heading, section.class);
+                    if (listHtml) htmlChunks.push(listHtml);
+                } else {
+                    const cls = section.class ? ` class="${escapeHtml(section.class)}"` : '';
+                    htmlChunks.push(`<${section.tag}${cls}>${bbcodeToHtml(contentRaw)}</${section.tag}>`);
                 }
                 break;
             case 'image':
@@ -818,11 +838,21 @@ function generateHTML(event) {
                 break;
         }
     });
+    
     const finalHtml = htmlChunks.join('\n\n');
     document.getElementById('result').style.display = 'block';
     preview.innerHTML = finalHtml;
     source.value = finalHtml;
+
+
+    setEditorState(filteredState);
+    
+
+    setTimeout(() => {
+      saveState();
+    }, 100);
 }
+
 
 function bbcodeToHtml(raw = '') {
     let s = escapeHtml(raw);
@@ -831,14 +861,13 @@ function bbcodeToHtml(raw = '') {
 }
 
 function buildList(tag, textContent, listHeading, cssClass) {
-    const items = textContent.split(/\r?\n/).map(t => t.trim()).filter(Boolean).map(li => `<li>${bbcodeToHtml(li).replaceAll('<br>', '')}</li>`).join('');
-    // ZMIANA: Zwróć pusty ciąg znaków, jeśli lista nie ma elementów
-    if (!items) {
-        return '';
-    }
-    const heading = listHeading ? `<h3>${escapeHtml(listHeading)}</h3>` : '';
-    const cls = cssClass ? ` class="${escapeHtml(cssClass)}"` : '';
-    return `${heading}<${tag}${cls}>${items}</${tag}>`;
+  const items = textContent.split(/\r?\n/).map(t => t.trim()).filter(Boolean).map(li => `<li>${bbcodeToHtml(li).replaceAll('<br>', '')}</li>`).join('');
+  if (!items) {
+      return '';
+  }
+  const heading = listHeading ? `<h3>${escapeHtml(listHeading)}</h3>` : '';
+  const cls = cssClass ? ` class="${escapeHtml(cssClass)}"` : '';
+  return `${heading}<${tag}${cls}>${items}</${tag}>`;
 }
 
 function updatePreview() {
