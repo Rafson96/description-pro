@@ -1,5 +1,3 @@
-
-
 let sectionCount = 0;
 const imageOptions = [
     {
@@ -557,12 +555,10 @@ document.addEventListener('DOMContentLoaded', () => {
     loadStateFromLocalStorage();
     const container = document.getElementById('sectionsContainer');
 
-    // Inicjalizacja SortableJS
     new Sortable(container, {
         animation: 150,
-        handle: '.drag-handle', // Uchwyt do przeciągania
+        handle: '.drag-handle',
         onEnd: function () {
-            // Zapisz nową kolejność po zakończeniu przeciągania
             saveState();
         }
     });
@@ -591,11 +587,14 @@ function addTextSection(suppressSave = false) {
     const div = document.createElement('div');
     div.className = 'section-block';
     div.setAttribute('data-id', sectionId);
-    // ZMIANA: Dodano uchwyt (drag-handle) i usunięto przyciski góra/dół
     div.innerHTML = `
       <div class="section-actions">
         <i class="bi bi-grip-vertical drag-handle me-2"></i>
-        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button>
+        <div class="btn-group btn-group-sm me-2" role="group">
+          <button type="button" class="btn btn-outline-secondary" onclick="moveUp(this)" title="Przesuń w górę"><i class="bi bi-arrow-up"></i></button>
+          <button type="button" class="btn btn-outline-secondary" onclick="moveDown(this)" title="Przesuń w dół"><i class="bi bi-arrow-down"></i></button>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)" title="Usuń sekcję"><i class="bi bi-trash"></i></button>
       </div>
       <h5>Sekcja tekstowa</h5>
       <div class="mb-2"><label class="form-label">Rodzaj tagu:</label><select class="form-select" name="sections[${sectionId}][tag]" onchange="toggleListTitle(this)"><option value="p">p</option><option value="strong">strong</option><option value="h1">h1</option><option value="h2">h2</option><option value="h3">h3</option><option value="ul">Lista wypunktowana (ul)</option><option value="ol">Lista numerowana (ol)</option></select></div>
@@ -615,11 +614,14 @@ function addImageSection(suppressSave = false) {
     const div = document.createElement('div');
     div.className = 'section-block';
     div.setAttribute('data-id', sectionId);
-    // ZMIANA: Dodano uchwyt (drag-handle) i usunięto przyciski góra/dół
     div.innerHTML = `
       <div class="section-actions">
         <i class="bi bi-grip-vertical drag-handle me-2"></i>
-        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button>
+        <div class="btn-group btn-group-sm me-2" role="group">
+          <button type="button" class="btn btn-outline-secondary" onclick="moveUp(this)" title="Przesuń w górę"><i class="bi bi-arrow-up"></i></button>
+          <button type="button" class="btn btn-outline-secondary" onclick="moveDown(this)" title="Przesuń w dół"><i class="bi bi-arrow-down"></i></button>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)" title="Usuń sekcję"><i class="bi bi-trash"></i></button>
       </div>
       <h5>Sekcja obrazkowa</h5>
       <div class="mb-3"><label class="form-label">Wybierz zdjęcie z listy:</label><select class="form-select" onchange="updateImageDetails(this, '${sectionId}')"><option value="">-- Wybierz lub wypełnij ręcznie --</option>${imageOptionsHtml}</select></div>
@@ -640,11 +642,14 @@ function addAdvantagesSection(suppressSave = false) {
     const div = document.createElement('div');
     div.className = 'section-block';
     div.setAttribute('data-id', sectionId);
-    // ZMIANA: Dodano uchwyt (drag-handle) i usunięto przyciski góra/dół
     div.innerHTML = `
       <div class="section-actions">
         <i class="bi bi-grip-vertical drag-handle me-2"></i>
-        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">🗑️</button>
+        <div class="btn-group btn-group-sm me-2" role="group">
+          <button type="button" class="btn btn-outline-secondary" onclick="moveUp(this)" title="Przesuń w górę"><i class="bi bi-arrow-up"></i></button>
+          <button type="button" class="btn btn-outline-secondary" onclick="moveDown(this)" title="Przesuń w dół"><i class="bi bi-arrow-down"></i></button>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)" title="Usuń sekcję"><i class="bi bi-trash"></i></button>
       </div>
       <h5>Sekcja zalet</h5>
       <div class="advantages-container mb-3"></div>
@@ -655,7 +660,21 @@ function addAdvantagesSection(suppressSave = false) {
     return div;
 }
 
-// USUNIĘTO FUNKCJE moveUp I moveDown
+function moveUp(button) {
+    const sectionBlock = button.closest('.section-block');
+    if (sectionBlock && sectionBlock.previousElementSibling) {
+        sectionBlock.parentElement.insertBefore(sectionBlock, sectionBlock.previousElementSibling);
+        saveState();
+    }
+}
+
+function moveDown(button) {
+    const sectionBlock = button.closest('.section-block');
+    if (sectionBlock && sectionBlock.nextElementSibling) {
+        sectionBlock.nextElementSibling.after(sectionBlock);
+        saveState();
+    }
+}
 
 function removeSection(button) {
     button.closest('.section-block').remove();
@@ -868,7 +887,7 @@ function generateHTML(event) {
         }
     });
     
-    const finalHtml = htmlChunks.join('\n\n');
+    const finalHtml = htmlChunks.join('');
     document.getElementById('result').style.display = 'block';
     preview.innerHTML = finalHtml;
     source.value = finalHtml;
