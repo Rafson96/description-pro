@@ -320,7 +320,7 @@ const advantagesOptions = [
     {
         src: "https://mfstore.pl/media/wysiwyg/icon_advantage/Moc.png",
         alt: "Moc 15–23,8 W ",
-        title: "Moc 15–23,8 W ",
+        title: "Moc 15–23,8 W",
         desc: "Wydajne i oszczędne oświetlenie; dobra jasność przy niskim zużyciu energii elektrycznej."
     },
     {
@@ -801,37 +801,113 @@ function loadFromPastedHTML(sourceCode) {
     alert('Import zakończony!');
 }
 
+// --- POCZĄTEK ZMIENIONEGO KODU ---
 function loadFromSource() {
     const sourceCode = document.getElementById('sourceCode').value;
-    if (!sourceCode.trim()) return alert('Pole z kodem źródłowym jest puste.');
+    if (!sourceCode.trim()) {
+        return alert('Pole z kodem źródłowym jest puste.');
+    }
+
     const parser = new DOMParser();
     const doc = parser.parseFromString(sourceCode, 'text/html');
-    const elements = Array.from(doc.body.children);
     const newState = [];
-    let i = 0;
-    while (i < elements.length) {
-        const element = elements[i], nextElement = elements[i + 1];
-        let consumed = 1, mainEl = element, heading = '';
-        if (element.classList.contains('advantages-grid')) {
-            const items = Array.from(element.querySelectorAll('.advantages-box h3')).map(h3 => advantagesOptions.findIndex(opt => opt.title === h3.textContent.trim()).toString()).filter(index => index !== "-1");
-            newState.push({ type: 'advantages', items });
-        } else if (element.tagName === 'IMG') {
-            newState.push({ type: 'image', url: element.src, alt: element.alt, width: element.getAttribute('width') || '', class: element.className });
-        } else if (['P', 'H1', 'H2', 'H3', 'STRONG', 'UL', 'OL'].includes(element.tagName)) {
-            if (element.tagName === 'H3' && nextElement && ['UL', 'OL'].includes(nextElement.tagName)) {
-                heading = element.textContent;
-                mainEl = nextElement;
-                consumed = 2;
-            }
-            let content = ['UL', 'OL'].includes(mainEl.tagName) ? Array.from(mainEl.querySelectorAll('li')).map(li => `<div>${li.innerHTML}</div>`).join('') : mainEl.innerHTML;
-            newState.push({ type: 'text', tag: mainEl.tagName.toLowerCase(), list_heading: heading, content, class: mainEl.className });
+    const processedElements = new Set(); // Zapobiega podwójnemu przetwarzaniu
+
+    // Funkcja rekursywna do przechodzenia przez drzewo DOM
+    function processNode(node) {
+        // Pomiń, jeśli węzeł został już przetworzony
+        if (processedElements.has(node)) {
+            return;
         }
-        i += consumed;
+
+        // Przetwarzaj tylko węzły typu ELEMENT
+        if (node.nodeType !== Node.ELEMENT_NODE) {
+            return;
+        }
+
+        let elementHandled = false;
+
+        // --- Logika przetwarzania poszczególnych tagów ---
+
+        // 1. Sekcja "Zalety" (advantages-grid) - najwyższy priorytet
+        if (node.matches('.advantages-grid')) {
+            const items = Array.from(node.querySelectorAll('.advantages-box h3'))
+                .map(h3 => advantagesOptions.findIndex(opt => opt.title === h3.textContent.trim()).toString())
+                .filter(index => index !== "-1");
+            if (items.length > 0) {
+                newState.push({ type: 'advantages', items });
+            }
+            elementHandled = true;
+        }
+        // 2. Obraz (IMG)
+        else if (node.tagName === 'IMG') {
+            newState.push({
+                type: 'image',
+                url: node.src,
+                alt: node.alt,
+                width: node.getAttribute('width') || '',
+                class: node.className
+            });
+            elementHandled = true;
+        }
+        // 3. Listy (UL, OL) - sprawdzają, czy poprzedza je nagłówek
+        else if (node.tagName === 'UL' || node.tagName === 'OL') {
+            let heading = '';
+            const prevElement = node.previousElementSibling;
+            // Jeśli poprzedni element to nagłówek i nie został jeszcze przetworzony
+            if (prevElement && ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(prevElement.tagName) && !processedElements.has(prevElement)) {
+                heading = prevElement.textContent;
+                processedElements.add(prevElement); // Oznacz nagłówek jako przetworzony
+            }
+            let content = Array.from(node.querySelectorAll('li')).map(li => `<div>${li.innerHTML}</div>`).join('');
+            newState.push({
+                type: 'text',
+                tag: node.tagName.toLowerCase(),
+                list_heading: heading,
+                content: content,
+                class: node.className
+            });
+            elementHandled = true;
+        }
+        // 4. Inne tagi tekstowe (P, H1, H2, H3, STRONG)
+        else if (['P', 'H1', 'H2', 'H3', 'STRONG'].includes(node.tagName)) {
+            // Sprawdź, czy ten tag nie jest nagłówkiem dla listy, która zostanie przetworzona później
+            const nextElement = node.nextElementSibling;
+            if (nextElement && ['UL', 'OL'].includes(nextElement.tagName)) {
+                // To jest nagłówek listy, zostanie on obsłużony przez logikę dla UL/OL, więc nie rób nic
+            } else {
+                newState.push({
+                    type: 'text',
+                    tag: node.tagName.toLowerCase(),
+                    list_heading: '',
+                    content: node.innerHTML,
+                    class: node.className
+                });
+                elementHandled = true;
+            }
+        }
+
+        // --- Zakończenie logiki ---
+
+        if (elementHandled) {
+            // Jeśli element został przetworzony, oznacz go i wszystkie jego dzieci jako "zrobione"
+            processedElements.add(node);
+            node.querySelectorAll('*').forEach(child => processedElements.add(child));
+        } else {
+            // Jeśli element nie został obsłużony (np. jest to <div>, <section>),
+            // kontynuuj przetwarzanie jego dzieci
+            node.childNodes.forEach(child => processNode(child));
+        }
     }
+
+    // Rozpocznij przetwarzanie od głównych elementów w `body`
+    doc.body.childNodes.forEach(node => processNode(node));
+
     setEditorState(newState);
     saveState();
     alert('Import zakończony!');
 }
+// --- KONIEC ZMIENIONEGO KODU ---
 
 function generateHTML(event) {
     event?.preventDefault?.();
