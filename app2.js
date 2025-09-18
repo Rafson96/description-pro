@@ -866,16 +866,18 @@ function generateHTML(event) {
                 const contentRaw = hiddenTextarea.value;
                 if (section.tag === 'ul' || section.tag === 'ol') {
                     const listHtml = buildList(section.tag, contentRaw, section.list_heading, section.class);
-                    if (listHtml) htmlChunks.push(listHtml);
+                    if (listHtml) htmlChunks.push(`<div class="item-description">${listHtml}</div>`);
                 } else {
                     const cls = section.class ? ` class="${escapeHtml(section.class)}"` : '';
-                    htmlChunks.push(`<${section.tag}${cls}>${bbcodeToHtml(contentRaw)}</${section.tag}>`);
+                    const tagHtml = `<${section.tag}${cls}>${bbcodeToHtml(contentRaw)}</${section.tag}>`;
+                    htmlChunks.push(`<div class="item-description">${tagHtml}</div>`);
                 }
                 break;
             case 'image':
                 if (section.url) {
                     const widthAttr = section.width ? ` width="${escapeHtml(section.width)}"` : '', classAttr = section.class ? ` class="${escapeHtml(section.class)}"` : '';
-                    htmlChunks.push(`<img src="${escapeHtml(section.url)}" alt="${escapeHtml(section.alt)}"${widthAttr}${classAttr} loading="lazy">`);
+                    const imgHtml = `<img src="${escapeHtml(section.url)}" alt="${escapeHtml(section.alt)}"${widthAttr}${classAttr} loading="lazy">`;
+                    htmlChunks.push(`<div class="item-description">${imgHtml}</div>`);
                 }
                 break;
             case 'advantages':
@@ -887,7 +889,7 @@ function generateHTML(event) {
         }
     });
     
-    const finalHtml = htmlChunks.join('');
+    const finalHtml = htmlChunks.join('\n');
     document.getElementById('result').style.display = 'block';
     preview.innerHTML = finalHtml;
     source.value = finalHtml;
