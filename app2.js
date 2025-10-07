@@ -1,5 +1,71 @@
 let sectionCount = 0;
 const imageOptions = [
+
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_9.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 9"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_7.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 7"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_8.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 8"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_4.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_5.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_6.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 6"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_1.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_2.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_3.jpg",
+    alt: "Drzwi Erkado Baldur - wizualizacja 3"
+},
+
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/aralia/drzwi_erkado_aralia_wiz_1.jpg",
+    alt: "Drzwi Erkado Aralia - wizualizacja 1"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/ansedomoia/drzwi_erkado_ansedomoia_wiz_1.jpg",
+    alt: "Drzwi Erkado Ansedomoia - wizualizacja 1"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/anubis/drzwi_erkado_anubis_wiz_4.jpg",
+    alt: "Drzwi Erkado Anubis - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/anubis/drzwi_erkado_anubis_wiz_5.jpg",
+    alt: "Drzwi Erkado Anubis - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/anubis/drzwi_erkado_anubis_wiz_1.jpg",
+    alt: "Drzwi Erkado Anubis - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/anubis/drzwi_erkado_anubis_wiz_2.jpg",
+    alt: "Drzwi Erkado Anubis - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/anubis/drzwi_erkado_anubis_wiz_3.jpg",
+    alt: "Drzwi Erkado Anubis - wizualizacja 3"
+},
 {
     url: "https://mfstore.pl/media/wysiwyg/drzwi/Amarylis/drzwi_erkado_amarylis_wiz_6.jpg",
     alt: "Drzwi Erkado Amarylis - wizualizacja 6"
@@ -1082,6 +1148,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
