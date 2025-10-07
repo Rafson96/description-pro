@@ -2,6 +2,26 @@ let sectionCount = 0;
 const imageOptions = [
 
 	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Budleja/drzwi_erkado_budleja_wiz_1.jpg",
+    alt: "Drzwi Erkado Budleja - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Budleja/drzwi_erkado_budleja_wiz_2.jpg",
+    alt: "Drzwi Erkado Budleja - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Budleja/drzwi_erkado_budleja_wiz_4.jpg",
+    alt: "Drzwi Erkado Budleja - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Budleja/drzwi_erkado_budleja_wiz_3.jpg",
+    alt: "Drzwi Erkado Budleja - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Berberys/drzwi_erkado_berberys_wiz_1.jpg",
+    alt: "Drzwi Erkado Berberys - wizualizacja 1"
+},
+	{
     url: "https://mfstore.pl/media/wysiwyg/drzwi/Baldur/drzwi_erkado_Baldur_wiz_9.jpg",
     alt: "Drzwi Erkado Baldur - wizualizacja 9"
 },
@@ -1148,6 +1168,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
