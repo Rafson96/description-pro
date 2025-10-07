@@ -20,7 +20,30 @@ const imageOptions = [
     url: "https://mfstore.pl/media/wysiwyg/drzwi/Magnolia/drzwi_erkado_Magnolia_wiz_1.jpg",
     alt: "Drzwi Erkado Magnolia - wizualizacja 1"
 },
-
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Altamura/drzwi_erkado_Altamura_wiz_6.jpg",
+    alt: "Drzwi Erkado Altamura - wizualizacja 6"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Altamura/drzwi_erkado_Altamura_wiz_3.jpg",
+    alt: "Drzwi Erkado Altamura - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Altamura/drzwi_erkado_Altamura_wiz_4.jpg",
+    alt: "Drzwi Erkado Altamura - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Altamura/drzwi_erkado_Altamura_wiz_5.jpg",
+    alt: "Drzwi Erkado Altamura - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Altamura/drzwi_erkado_Altamura_wiz_1.jpg",
+    alt: "Drzwi Erkado Altamura - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Altamura/drzwi_erkado_Altamura_wiz_2.jpg",
+    alt: "Drzwi Erkado Altamura - wizualizacja 2"
+},
 
 	
     {
@@ -1034,4 +1057,5 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
