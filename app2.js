@@ -1,6 +1,46 @@
 let sectionCount = 0;
 const imageOptions = [
 	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/fragi/drzwi_erkado_fragi_wiz_5.jpg",
+    alt: "Drzwi Erkado Fragi - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/fragi/drzwi_erkado_fragi_wiz_2.jpg",
+    alt: "Drzwi Erkado Fragi - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/fragi/drzwi_erkado_fragi_wiz_3.jpg",
+    alt: "Drzwi Erkado Fragi - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/fragi/drzwi_erkado_fragi_wiz_4.jpg",
+    alt: "Drzwi Erkado Fragi - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/fragi/drzwi_erkado_fragi_wiz_1.jpg",
+    alt: "Drzwi Erkado Fragi - wizualizacja 1"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/forsycja/drzwi_erkado_forsycja_wiz_3.jpg",
+    alt: "Drzwi Erkado Forsycja - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/forsycja/drzwi_erkado_forsycja_wiz_4.jpg",
+    alt: "Drzwi Erkado Forsycja - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/forsycja/drzwi_erkado_forsycja_wiz_1.jpg",
+    alt: "Drzwi Erkado Forsycja - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/forsycja/drzwi_erkado_forsycja_wiz_2.jpg",
+    alt: "Drzwi Erkado Forsycja - wizualizacja 2"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/ewodia/drzwi_erkado_ewodia_wiz_1.jpg",
+    alt: "Drzwi Erkado Ewodia - wizualizacja 1"
+},
+	{
     url: "https://mfstore.pl/media/wysiwyg/drzwi/drzwi_erkado_epimedium_wiz_3.jpg",
     alt: "Drzwi Erkado Epimedium - wizualizacja 3"
 },
@@ -1212,6 +1252,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
