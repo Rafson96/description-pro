@@ -1,6 +1,42 @@
 let sectionCount = 0;
 const imageOptions = [
 	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/drzwi_erkado_epimedium_wiz_3.jpg",
+    alt: "Drzwi Erkado Epimedium - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/drzwi_erkado_epimedium_wiz_4.jpg",
+    alt: "Drzwi Erkado Epimedium - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/drzwi_erkado_epimedium_wiz_5.jpg",
+    alt: "Drzwi Erkado Epimedium - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/drzwi_erkado_epimedium_wiz_1.jpeg",
+    alt: "Drzwi Erkado Epimedium - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/drzwi_erkado_epimedium_wiz_2.jpg",
+    alt: "Drzwi Erkado Epimedium - wizualizacja 2"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/debecja/drzwi_erkado_debecja_wiz_2.jpg",
+    alt: "Drzwi Erkado Debecja - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/debecja/drzwi_erkado_debecja_wiz_3.jpg",
+    alt: "Drzwi Erkado Debecja - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/debecja/drzwi_erkado_debecja_wiz_4.jpg",
+    alt: "Drzwi Erkado Debecja - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/debecja/drzwi_erkado_debecja_wiz_1.jpg",
+    alt: "Drzwi Erkado Debecja - wizualizacja 1"
+},
+	{
     url: "https://mfstore.pl/media/wysiwyg/drzwi/daglezja/drzwi_erkado_daglezja_wiz_1.jpg",
     alt: "Drzwi Erkado Daglezja - wizualizacja 1"
 },
@@ -1176,6 +1212,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
