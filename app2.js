@@ -1,6 +1,30 @@
 let sectionCount = 0;
 const imageOptions = [
 	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/frezja/drzwi_erkado_Frezja_wiz_6.jpg",
+    alt: "Drzwi Erkado Frezja - wizualizacja 6"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/frezja/drzwi_erkado_Frezja_wiz_3.jpg",
+    alt: "Drzwi Erkado Frezja - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/frezja/drzwi_erkado_Frezja_wiz_4.jpg",
+    alt: "Drzwi Erkado Frezja - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/frezja/drzwi_erkado_Frezja_wiz_5.jpg",
+    alt: "Drzwi Erkado Frezja - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/frezja/drzwi_erkado_Frezja_wiz_1.jpg",
+    alt: "Drzwi Erkado Frezja - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/frezja/drzwi_erkado_Frezja_wiz_2.jpg",
+    alt: "Drzwi Erkado Frezja - wizualizacja 2"
+},
+	{
     url: "https://mfstore.pl/media/wysiwyg/drzwi/fragi/drzwi_erkado_fragi_wiz_5.jpg",
     alt: "Drzwi Erkado Fragi - wizualizacja 5"
 },
@@ -1252,6 +1276,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
