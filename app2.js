@@ -1,5 +1,13 @@
 let sectionCount = 0;
 const imageOptions = [
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/daglezja/drzwi_erkado_daglezja_wiz_1.jpg",
+    alt: "Drzwi Erkado Daglezja - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/daglezja/drzwi_erkado_daglezja_wiz_2.jpg",
+    alt: "Drzwi Erkado Daglezja - wizualizacja 2"
+},
 
 	{
     url: "https://mfstore.pl/media/wysiwyg/drzwi/Budleja/drzwi_erkado_budleja_wiz_1.jpg",
@@ -1168,6 +1176,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
