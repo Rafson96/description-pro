@@ -1,5 +1,28 @@
 let sectionCount = 0;
 const imageOptions = [
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Magnolia/drzwi_erkado_Magnolia_wiz_5.jpg",
+    alt: "Drzwi Erkado Magnolia - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Magnolia/drzwi-erkado-Magnolia-wiz-2.jpg",
+    alt: "Drzwi Erkado Magnolia - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Magnolia/drzwi_erkado_Magnolia_wiz_3.jpg",
+    alt: "Drzwi Erkado Magnolia - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Magnolia/drzwi_erkado_Magnolia_wiz_4.jpg",
+    alt: "Drzwi Erkado Magnolia - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Magnolia/drzwi_erkado_Magnolia_wiz_1.jpg",
+    alt: "Drzwi Erkado Magnolia - wizualizacja 1"
+},
+
+
+	
     {
         url: "https://mfstore.pl/media/wysiwyg/image_description/lustra/lustro_multiline_zona_wiz2.jpg",
         alt: "Lustro Multiline Zona - wizualizacja 2"
@@ -1011,3 +1034,4 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
