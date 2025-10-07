@@ -1,5 +1,30 @@
 let sectionCount = 0;
 const imageOptions = [
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Amarylis/drzwi_erkado_amarylis_wiz_6.jpg",
+    alt: "Drzwi Erkado Amarylis - wizualizacja 6"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Amarylis/drzwi_erkado_amarylis_wiz_3.jpg",
+    alt: "Drzwi Erkado Amarylis - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Amarylis/drzwi_erkado_amarylis_wiz_4.jpg",
+    alt: "Drzwi Erkado Amarylis - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Amarylis/drzwi_erkado_amarylis_wiz_5.jpg",
+    alt: "Drzwi Erkado Amarylis - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Amarylis/drzwi_erkado_amarylis_wiz_1.jpg",
+    alt: "Drzwi Erkado Amarylis - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/Amarylis/drzwi_erkado_amarylis_wiz_2.jpg",
+    alt: "Drzwi Erkado Amarylis - wizualizacja 2"
+},
+	
 	{
     url: "https://mfstore.pl/media/wysiwyg/drzwi/Magnolia/drzwi_erkado_Magnolia_wiz_5.jpg",
     alt: "Drzwi Erkado Magnolia - wizualizacja 5"
@@ -1057,5 +1082,6 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
