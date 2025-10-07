@@ -1,6 +1,14 @@
 let sectionCount = 0;
 const imageOptions = [
 	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/hiacynt/drzwi_erkado_hiacynt_wiz_2.jpg",
+    alt: "Drzwi Erkado Hiacynt - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/hiacynt/drzwi_erkado_hiacynt_wiz_1.jpg",
+    alt: "Drzwi Erkado Hiacynt - wizualizacja 1"
+},
+	{
     url: "https://mfstore.pl/media/wysiwyg/drzwi/frezja/drzwi_erkado_Frezja_wiz_6.jpg",
     alt: "Drzwi Erkado Frezja - wizualizacja 6"
 },
@@ -1276,6 +1284,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
