@@ -1,5 +1,62 @@
 let sectionCount = 0;
 const imageOptions = [
+
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-auri.jpg",
+    alt: "Drzwi DRE Auri"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-binito.jpg",
+    alt: "Drzwi DRE Binito"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-city.jpg",
+    alt: "Drzwi DRE City"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-estra.jpg",
+    alt: "Drzwi DRE Estra"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-hampton.jpg",
+    alt: "Drzwi DRE Hampton"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-lumio.jpg",
+    alt: "Drzwi DRE Lumio"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-nestor.jpg",
+    alt: "Drzwi DRE Nestor"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-premium.jpg",
+    alt: "Drzwi DRE Premium"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-reva.jpg",
+    alt: "Drzwi DRE Reva"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-sara-eco.jpg",
+    alt: "Drzwi DRE Sara Eco"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-soho.jpg",
+    alt: "Drzwi DRE Soho"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-sol.jpg",
+    alt: "Drzwi DRE Sol"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-standard.jpg",
+    alt: "Drzwi DRE Standard"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/dre/drzwi-dre-verso.jpg",
+    alt: "Drzwi DRE Verso"
+},
 	{
     url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-4-zywioly-ogien.jpg",
     alt: "Drzwi Porta 4 Żywioły Ogień"
@@ -1681,6 +1738,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
