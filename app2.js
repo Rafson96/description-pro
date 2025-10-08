@@ -1,6 +1,91 @@
 let sectionCount = 0;
 const imageOptions = [
 	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_1.jpg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_2.jpg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_3.jpg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_4.jpg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_5.jpg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_6.jpg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 6"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_7.jpg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 7"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_8.jpeg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 8"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_9.jpg",
+    alt: "Drzwi Erkado Laurencja - wizualizacja 9"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/krokus/drzwi_erkado_krokus_wiz_1.jpg",
+    alt: "Drzwi Erkado Krokus - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/krokus/drzwi_erkado_krokus_wiz_2.jpg",
+    alt: "Drzwi Erkado Krokus - wizualizacja 2"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/juka/drzwi_erkado_juka_wiz_1.jpg",
+    alt: "Drzwi Erkado Juka - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/juka/drzwi_erkado_juka_wiz_2.jpg",
+    alt: "Drzwi Erkado Juka - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/juka/drzwi_erkado_juka_wiz_3.jpg",
+    alt: "Drzwi Erkado Juka - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/juka/drzwi_erkado_juka_wiz_4.jpg",
+    alt: "Drzwi Erkado Juka - wizualizacja 4"
+},
+	
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/irys/drzwi_erkado_irys_wiz_1.jpg",
+    alt: "Drzwi Erkado Irys - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/irys/drzwi_erkado_irys_wiz_2.jpg",
+    alt: "Drzwi Erkado Irys - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/irys/drzwi_erkado_irys_wiz_3.jpg",
+    alt: "Drzwi Erkado Irys - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/irys/drzwi_erkado_irys_wiz_4.jpg",
+    alt: "Drzwi Erkado Irys - wizualizacja 4"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/hiacynt/drzwi_erkado_hiacynt_wiz_2.jpg",
+    alt: "Drzwi Erkado Hiacynt - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/drzwi/hiacynt/drzwi_erkado_hiacynt_wiz_1.jpg",
+    alt: "Drzwi Erkado Hiacynt - wizualizacja 1"
+},
+	{
     url: "https://mfstore.pl/media/wysiwyg/drzwi/hiacynt/drzwi_erkado_hiacynt_wiz_2.jpg",
     alt: "Drzwi Erkado Hiacynt - wizualizacja 2"
 },
@@ -1284,6 +1369,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
