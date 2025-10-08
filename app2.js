@@ -1,6 +1,318 @@
 let sectionCount = 0;
 const imageOptions = [
 	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-4-zywioly-ogien.jpg",
+    alt: "Drzwi Porta 4 Żywioły Ogień"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-4-zywioly-powietrze.jpg",
+    alt: "Drzwi Porta 4 Żywioły Powietrze"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-4-zywioly-woda.jpg",
+    alt: "Drzwi Porta 4 Żywioły Woda"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-4-zywioly-ziemia.jpg",
+    alt: "Drzwi Porta 4 Żywioły Ziemia"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-desire.jpg",
+    alt: "Drzwi Porta Desire"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-focus.jpg",
+    alt: "Drzwi Porta Focus"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-grande.jpg",
+    alt: "Drzwi Porta Grande"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-hide.jpg",
+    alt: "Drzwi Porta Hide"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-line.jpg",
+    alt: "Drzwi Porta Line"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-resist.jpg",
+    alt: "Drzwi Porta Resist"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-vector.jpg",
+    alt: "Drzwi Porta Vector"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-verte-home-c-d.jpg",
+    alt: "Drzwi Porta Verte Home C-D"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-verte-home-g.jpg",
+    alt: "Drzwi Porta Verte Home G"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-verte-home-h-j.jpg",
+    alt: "Drzwi Porta Verte Home H-J"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/drzwi-porta-verte-premium-e.jpg",
+    alt: "Drzwi Porta Verte Premium E"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/porta/dzrwi-porta-cpl.jpg",
+    alt: "Drzwi Porta CPL"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/werbena/drzwi_erkado_Werbena_wiz_1.jpg",
+    alt: "Drzwi Erkado Werbena - wizualizacja 1"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_1.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_10.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 10"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_11.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 11"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_12.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 12"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_2.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_3.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_4.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_5.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_6.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 6"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_7.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 7"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_8.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 8"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/turan/drzwi_erkado_turan_wiz_9.jpg",
+    alt: "Drzwi Erkado Turan - wizualizacja 9"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/sylena/drzwi_erkado_Sylena_wiz_1.jpg",
+    alt: "Drzwi Erkado Sylena - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/sylena/drzwi_erkado_Sylena_wiz_2.jpg",
+    alt: "Drzwi Erkado Sylena - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/sylena/drzwi_erkado_Sylena_wiz_3.jpg",
+    alt: "Drzwi Erkado Sylena - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/sylena/drzwi_erkado_Sylena_wiz_4.jpg",
+    alt: "Drzwi Erkado Sylena - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/sylena/drzwi_erkado_Sylena_wiz_5.jpg",
+    alt: "Drzwi Erkado Sylena - wizualizacja 5"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/surmia/drzwi_erkado_surmia_wiz_1.jpg",
+    alt: "Drzwi Erkado Surmia - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/surmia/drzwi_erkado_surmia_wiz_2.jpg",
+    alt: "Drzwi Erkado Surmia - wizualizacja 2"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/sorano/drzwi_erkado_sorano_wiz_1.jpg",
+    alt: "Drzwi Erkado Sorano - wizualizacja 1"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/petunia/drzwi_erkado_petunia_wiz_1.jpg",
+    alt: "Drzwi Erkado Petunia - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/petunia/drzwi_erkado_petunia_wiz_2.jpg",
+    alt: "Drzwi Erkado Petunia - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/petunia/drzwi_erkado_petunia_wiz_3.jpg",
+    alt: "Drzwi Erkado Petunia - wizualizacja 3"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/pera/drzwi_erkado_Pera_wiz_1.jpg",
+    alt: "Drzwi Erkado Pera - wizualizacja 1"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/peonia/drzwi_erkado_Peonia_wiz_1.jpg",
+    alt: "Drzwi Erkado Peonia - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/peonia/drzwi_erkado_Peonia_wiz_2.jpg",
+    alt: "Drzwi Erkado Peonia - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/peonia/drzwi_erkado_Peonia_wiz_3.jpg",
+    alt: "Drzwi Erkado Peonia - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/peonia/drzwi_erkado_Peonia_wiz_4.jpg",
+    alt: "Drzwi Erkado Peonia - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/peonia/drzwi_erkado_Peonia_wiz_5.jpg",
+    alt: "Drzwi Erkado Peonia - wizualizacja 5"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nolina/drzwi_erkado_nolina_wiz_1.jpg",
+    alt: "Drzwi Erkado Nolina - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nolina/drzwi_erkado_nolina_wiz_2.jpg",
+    alt: "Drzwi Erkado Nolina - wizualizacja 2"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_1.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_2.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_3.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_4.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_5.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_6.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 6"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_7.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 7"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_8.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 8"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/nemezja/drzwi_erkado_Nemezja_wiz_9.jpg",
+    alt: "Drzwi Erkado Nemezja - wizualizacja 9"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_1.jpg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_2.jpeg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_3.jpg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_4.jpg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_5.jpg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 5"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_6.jpg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 6"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_7.jpg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 7"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_8.jpg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 8"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/miskant/drzwi_erkado_miskant_wiz_9.jpg",
+    alt: "Drzwi Erkado Miskant - wizualizacja 9"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/milda/drzwi_erkado_milda_wiz_1.jpg",
+    alt: "Drzwi Erkado Milda - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/milda/drzwi_erkado_milda_wiz_2.jpg",
+    alt: "Drzwi Erkado Milda - wizualizacja 2"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/menton/drzwi_erkado_menton_wiz_1.jpg",
+    alt: "Drzwi Erkado Menton - wizualizacja 1"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/magnolia/drzwi_erkado_Magnolia_wiz_1.jpg",
+    alt: "Drzwi Erkado Magnolia - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/magnolia/drzwi_erkado_Magnolia_wiz_2.jpg",
+    alt: "Drzwi Erkado Magnolia - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/magnolia/drzwi_erkado_Magnolia_wiz_3.jpg",
+    alt: "Drzwi Erkado Magnolia - wizualizacja 3"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/lorient/drzwi_erkado_lorient_wiz_1.jpg",
+    alt: "Drzwi Erkado Lorient - wizualizacja 1"
+},
+	{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/lawenda/drzwi_erkado_lawenda_wiz_1.jpg",
+    alt: "Drzwi Erkado Lawenda - wizualizacja 1"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/lawenda/drzwi_erkado_lawenda_wiz_2.jpg",
+    alt: "Drzwi Erkado Lawenda - wizualizacja 2"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/lawenda/drzwi_erkado_lawenda_wiz_3.jpg",
+    alt: "Drzwi Erkado Lawenda - wizualizacja 3"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/lawenda/drzwi_erkado_lawenda_wiz_4.jpg",
+    alt: "Drzwi Erkado Lawenda - wizualizacja 4"
+},
+{
+    url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/lawenda/drzwi_erkado_lawenda_wiz_5.jpg",
+    alt: "Drzwi Erkado Lawenda - wizualizacja 5"
+},
+	{
     url: "https://mfstore.pl/media/wysiwyg/image_description/drzwi/erkado/laurencja/drzwi_erkado_Laurencja_wiz_1.jpg",
     alt: "Drzwi Erkado Laurencja - wizualizacja 1"
 },
@@ -1369,6 +1681,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
