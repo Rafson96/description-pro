@@ -1,8 +1,5 @@
 let sectionCount = 0;
-const imageOptions = [
-	Oto tablica JavaScript ze sformatowanymi adresami URL i tekstami alternatywnymi na podstawie podanego kodu HTML:
 
-JavaScript
 
 const imageOptions = [
 	{
@@ -1380,6 +1377,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
