@@ -1,5 +1,374 @@
 let sectionCount = 0;
 const imageOptions = [
+	Oto tablica JavaScript ze sformatowanymi adresami URL i tekstami alternatywnymi na podstawie podanego kodu HTML:
+
+JavaScript
+
+const imageOptions = [
+	{
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-4-zywioly-ogien_opis.jpg",
+        alt: "Drzwi Porta 4 Zywioly Ogien"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-4-zywioly-powietrze_opis.jpg",
+        alt: "Drzwi Porta 4 Zywioly Powietrze"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-4-zywioly-woda_opis.jpg",
+        alt: "Drzwi Porta 4 Zywioly Woda"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-4-zywioly-ziemia_opis.jpg",
+        alt: "Drzwi Porta 4 Zywioly Ziemia"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-desire_opis.jpg",
+        alt: "Drzwi Porta Desire"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-focus_opis.jpg",
+        alt: "Drzwi Porta Focus"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-grande_opis.jpg",
+        alt: "Drzwi Porta Grande"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-hide_opis.jpg",
+        alt: "Drzwi Porta Hide"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-line_opis.jpg",
+        alt: "Drzwi Porta Line"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-resist_opis.jpg",
+        alt: "Drzwi Porta Resist"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-vector_opis.jpg",
+        alt: "Drzwi Porta Vector"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-verte-home-c-d_opis.jpg",
+        alt: "Drzwi Porta Verte Home C D"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-verte-home-g_opis.jpg",
+        alt: "Drzwi Porta Verte Home G"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-verte-home-h-j_opis.jpg",
+        alt: "Drzwi Porta Verte Home H J"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/drzwi-porta-verte-premium-e_opis.jpg",
+        alt: "Drzwi Porta Verte Premium E"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Porta/dzrwi-porta-cpl_opis.jpg",
+        alt: "Dzrwi Porta Cpl"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Altamura_opis.jpg",
+        alt: "Drzwi Erkado Altamura"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Altamura_opis2.jpg",
+        alt: "Drzwi Erkado Altamura"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_amarylis_lakierowane_opis.jpg",
+        alt: "Drzwi Erkado Amarylis Lakierowane"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_amarylis_opis.jpg",
+        alt: "Drzwi Erkado Amarylis"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_amarylis_opis2.jpg",
+        alt: "Drzwi Erkado Amarylis"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_ansedomoia_opis.jpg",
+        alt: "Drzwi Erkado Ansedomoia"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_anubis__opis.jpg",
+        alt: "Drzwi Erkado Anubis"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_anubis_opis2.jpg",
+        alt: "Drzwi Erkado Anubis"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_aralia_wiz_1.jpg",
+        alt: "Drzwi Erkado Aralia Wiz 1"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Baldu_lakierowane_opis2.jpg",
+        alt: "Drzwi Erkado Baldu Lakierowane"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_azalia_wiz_1.jpg",
+        alt: "Drzwi Erkado Azalia Wiz 1"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Baldur_lakierowane_opis.jpg",
+        alt: "Drzwi Erkado Baldur Lakierowane"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Baldur_opis.jpg",
+        alt: "Drzwi Erkado Baldur"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Baldur_opis2.jpg",
+        alt: "Drzwi Erkado Baldur"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_berberys_opis.jpg",
+        alt: "Drzwi Erkado Berberys"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_budleja_opis.jpg",
+        alt: "Drzwi Erkado Budleja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_daglezja_opis.jpg",
+        alt: "Drzwi Erkado Daglezja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_debecja_opis.jpg",
+        alt: "Drzwi Erkado Debecja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_epimedium_opis.jpg",
+        alt: "Drzwi Erkado Epimedium"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_epimedium_opis2.jpg",
+        alt: "Drzwi Erkado Epimedium"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_ewodia_wiz_1.jpg",
+        alt: "Drzwi Erkado Ewodia Wiz 1"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_forsycja_opis.jpg",
+        alt: "Drzwi Erkado Forsycja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_fragi_opis.jpg",
+        alt: "Drzwi Erkado Fragi"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_fragi_opis2.jpg",
+        alt: "Drzwi Erkado Fragi"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Frezja_opis.jpg",
+        alt: "Drzwi Erkado Frezja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Frezja_opis2.jpg",
+        alt: "Drzwi Erkado Frezja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_hiacynt_opis.jpg",
+        alt: "Drzwi Erkado Hiacynt"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_irys_opis.jpg",
+        alt: "Drzwi Erkado Irys"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_juka_opis.jpg",
+        alt: "Drzwi Erkado Juka"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_krokus_opis.jpg",
+        alt: "Drzwi Erkado Krokus"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Laurencja_lakierowane_opis.jpg",
+        alt: "Drzwi Erkado Laurencja Lakierowane"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Laurencja_lakierowane_opis2.jpg",
+        alt: "Drzwi Erkado Laurencja Lakierowane"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_lawenda_opis.jpg",
+        alt: "Drzwi Erkado Lawenda"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_lorient_opis.jpg",
+        alt: "Drzwi Erkado Lorient"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_lukrecja_opis.jpg",
+        alt: "Drzwi Erkado Lukrecja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Magnolia_opis.jpg",
+        alt: "Drzwi Erkado Magnolia"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Magnolia_opis2.jpg",
+        alt: "Drzwi Erkado Magnolia"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_lukrecja_opis2.jpg",
+        alt: "Drzwi Erkado Lukrecja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_menton_opis.jpg",
+        alt: "Drzwi Erkado Menton"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_milda_opis.jpg",
+        alt: "Drzwi Erkado Milda"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_miskant_lakierowane_opis.jpg",
+        alt: "Drzwi Erkado Miskant Lakierowane"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_miskant_opis.jpg",
+        alt: "Drzwi Erkado Miskant"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Nemezja_lakierowane_opis.jpg",
+        alt: "Drzwi Erkado Nemezja Lakierowane"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_miskant_opis2.jpg",
+        alt: "Drzwi Erkado Miskant"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Nemezja_opis.jpg",
+        alt: "Drzwi Erkado Nemezja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Nemezja_opis2.jpg",
+        alt: "Drzwi Erkado Nemezja"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_nolina_opis.jpg",
+        alt: "Drzwi Erkado Nolina"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Peonia_lakierowane_wiz_opis.jpg",
+        alt: "Drzwi Erkado Peonia Lakierowane Wiz"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Peonia_opis.jpg",
+        alt: "Drzwi Erkado Peonia"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Pera_opis.jpg",
+        alt: "Drzwi Erkado Pera"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_petunia_opis.jpg",
+        alt: "Drzwi Erkado Petunia"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_sorano_opis.jpg",
+        alt: "Drzwi Erkado Sorano"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_surmia_opis.jpg",
+        alt: "Drzwi Erkado Surmia"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Sylena_opis.jpg",
+        alt: "Drzwi Erkado Sylena"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_turan_lakierowane_opis.jpg",
+        alt: "Drzwi Erkado Turan Lakierowane"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_turan_opis1.jpg",
+        alt: "Drzwi Erkado Turan"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_turan_opis2.jpg",
+        alt: "Drzwi Erkado Turan"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_uno_premium_opis.jpg",
+        alt: "Drzwi Erkado Uno Premium"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_uno_premium_opis1.jpg",
+        alt: "Drzwi Erkado Uno Premium"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_uno_premium_opis2.jpg",
+        alt: "Drzwi Erkado Uno Premium"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/Erkado/drzwi_erkado_Werbena_opis.jpg",
+        alt: "Drzwi Erkado Werbena"
+    },
+	{
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-auri_opis.jpg",
+        alt: "Drzwi DRE Auri"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-binito_opis.jpg",
+        alt: "Drzwi DRE Binito"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-city_opis.jpg",
+        alt: "Drzwi DRE City"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-estra_opis.jpg",
+        alt: "Drzwi DRE Estra"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-hampton_opis.jpg",
+        alt: "Drzwi DRE Hampton"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-lumio_opis.jpg",
+        alt: "Drzwi DRE Lumio"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-nestor_opis.jpg",
+        alt: "Drzwi DRE Nestor"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-premium_opis.jpg",
+        alt: "Drzwi DRE Premium"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-reva_opis.jpg",
+        alt: "Drzwi DRE Reva"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-sara-eco_opis.jpg",
+        alt: "Drzwi DRE Sara Eco"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-soho_opis.jpg",
+        alt: "Drzwi DRE Soho"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-sol_opis.jpg",
+        alt: "Drzwi DRE Sol"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-standard_opis.jpg",
+        alt: "Drzwi DRE Standard"
+    },
+    {
+        url: "https://mfstore.pl/media/wysiwyg/drzwi-opisy/DRE/drzwi-dre-verso_opis.jpg",
+        alt: "Drzwi DRE Verso"
+    },
     {
         url: "https://mfstore.pl/media/wysiwyg/image_description/lustra/lustro_multiline_zona_wiz2.jpg",
         alt: "Lustro Multiline Zona - wizualizacja 2"
@@ -1011,6 +1380,7 @@ async function copyToClipboard() {
     alert('Skopiowano do schowka!');
   }
 }
+
 
 
 
